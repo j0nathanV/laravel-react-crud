@@ -17,6 +17,19 @@ export default defineConfig({
             formVariants: true,
         }),
     ],
+    server: {
+        host: 'localhost',
+        port: 5173,
+        open: 'http://127.0.0.1:8000/clientes-ui',
+        strictPort: true,
+        proxy: {
+            '/api': {
+                target: 'http://127.0.0.1:8000',
+                changeOrigin: true,
+                secure: false,
+            },
+        },
+    },
     esbuild: {
         jsx: 'automatic',
     },

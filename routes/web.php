@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('index');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -13,12 +13,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+// Ruta pública para la UI de clientes
+Route::get('clientes-ui', function () {
+    return Inertia::render('clientes');
+})->name('clientes.ui');
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
-use App\Http\Controllers\ClienteController;
-
-Route::prefix('clientes')->group(function () {
-    Route::get('/', [ClienteController::class, 'index']); // Listar
-    Route::post('/', [ClienteController::class, 'store']); // Crear
-    Route::delete('/{id}', [ClienteController::class, 'destroy']); // Eliminar
-});
